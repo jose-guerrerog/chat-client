@@ -1,3 +1,7 @@
+import { Box, Drawer } from "@mui/material";
+import { MainContent } from './components/MainContent';
+import { Sidebar } from './components/Sidebar';
+import { Footer } from "./components/Footer";
 import "./App.css";
 import { useEffect } from "react";
 import io from "socket.io-client";
@@ -15,10 +19,13 @@ function App() {
   }, [socket]);
 
   return (
-    <div className="App">
-      <input placeholder="Message" />
-      <button onClick={sendMessage}>Send message</button>
-    </div>
+      <Box display="flex">
+        <Sidebar />
+        <Box height="100vh" overflow={"none"}>
+          <MainContent />
+          <Footer />
+        </Box>
+      </Box>
   );
 }
 
