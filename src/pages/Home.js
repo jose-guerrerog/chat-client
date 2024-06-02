@@ -2,10 +2,7 @@ import { Box, Button, Drawer, TextField, Typography } from "@mui/material";
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
-
-function Home() {
+export const Home = () => {
 
   const [username, setUsername] = useState('');
   const navigate = useNavigate();

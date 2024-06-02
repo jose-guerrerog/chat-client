@@ -1,16 +1,14 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-import Home from './pages/Home';
-import Chat from './pages/Chat';
-import socketIO from 'socket.io-client';
+import { Home } from './pages/Home';
+import { Chat } from './pages/Chat';
 
-const socket = socketIO.connect('http://localhost:4000');
 function App() {
   return (
     <BrowserRouter>
       <div>
         <Routes>
-          <Route path="/" element={<Home socket={socket} />}></Route>
-          <Route path="/chat" element={<Chat socket={socket} />}></Route>
+          <Route path="/" element={<Home />}></Route>
+          <Route path="/chat" element={<Chat />}></Route>
         </Routes>
       </div>
     </BrowserRouter>
