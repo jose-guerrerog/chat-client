@@ -1,31 +1,19 @@
-import { Box, Drawer } from "@mui/material";
-import { MainContent } from './components/MainContent';
-import { Sidebar } from './components/Sidebar';
-import { Footer } from "./components/Footer";
-import "./App.css";
-import { useEffect } from "react";
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import Home from './pages/Home';
+import Chat from './pages/Chat';
+import socketIO from 'socket.io-client';
 
+const socket = socketIO.connect('http://localhost:4000');
 function App() {
-  function sendMessage() {
-    console.log("Button clicked");
-    socket.emit("send_message", { message: "Hello from client" });
-  }
-  useEffect(() => {
-    socket.on("receive_message", (data) => {
-      alert(data.message);
-    });
-  }, [socket]);
-
   return (
-      <Box display="flex">
-        <Sidebar />
-        <Box height="100vh" overflow={"none"}>
-          <MainContent />
-          <Footer />
-        </Box>
-      </Box>
+    <BrowserRouter>
+      <div>
+        <Routes>
+          <Route path="/" element={<Home socket={socket} />}></Route>
+          <Route path="/chat" element={<Chat socket={socket} />}></Route>
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 }
 
