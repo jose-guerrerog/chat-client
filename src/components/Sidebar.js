@@ -1,28 +1,15 @@
+import { Box } from "@mui/material";
 import { useState, useEffect } from "react";
-import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
-import CssBaseline from "@mui/material/CssBaseline";
-import AppBar from "@mui/material/AppBar";
-import Toolbar from "@mui/material/Toolbar";
-import List from "@mui/material/List";
 import Typography from "@mui/material/Typography";
-import Divider from "@mui/material/Divider";
-import ListItem from "@mui/material/ListItem";
-import ListItemButton from "@mui/material/ListItemButton";
-import ListItemIcon from "@mui/material/ListItemIcon";
-import ListItemText from "@mui/material/ListItemText";
-import InboxIcon from "@mui/icons-material/MoveToInbox";
-import MailIcon from "@mui/icons-material/Mail";
 
 const drawerWidth = 240;
 
-export function Sidebar({socket}) {
+export const Sidebar = ({socket}) => {
   const [users, setUsers] = useState([])
 
   useEffect(() => {
     socket.on('roomData', ({ room, users }) => {
-      console.log('room')
-      console.log(room)
       setUsers(users);
     })
   }, [])
@@ -32,23 +19,28 @@ export function Sidebar({socket}) {
       sx={{
         width: drawerWidth,
         flexShrink: 0,
+        backgroundColor: '#222222',
         "& .MuiDrawer-paper": {
           width: drawerWidth,
           boxSizing: "border-box",
+          backgroundColor: '#222222',
+          color: '#ffffff'
         },
       }}
       variant="permanent"
       anchor="left"
     >
-      <Toolbar />
+      <Box py={5} px={2}>
       <Typography
         variant="h5"
+        mb={2}
       >
         Current Users
       </Typography>
       {
-        users.map((user) => user.username)
+        users.map((user) => <Typography noWrap mt={2}>{user.username}</Typography>)
       }
+      </Box>
     </Drawer>
   );
 }
