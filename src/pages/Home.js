@@ -1,15 +1,28 @@
-import { Box, Button, Drawer, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validationSchema } from "../schema";
 
 export const Home = ({ socket }) => {
-  const [username, setUsername] = useState("");
-  const [room, setRoom] = useState("");
+  
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isValid },
+  } = useForm({
+    mode: "onTouched",
+    resolver: yupResolver(validationSchema),
+  });
 
   const navigate = useNavigate();
 
-  const onSubmit = (e) => {
-    e.preventDefault();
+  const onSubmit = (data) => {
+    const {
+      username,
+      room
+    } = data;
     localStorage.setItem("username", username);
     localStorage.setItem("room", room);
 
@@ -19,7 +32,7 @@ export const Home = ({ socket }) => {
         navigate("/");
       }
     });
-
+    reset();
     navigate("/chat");
   };
 
@@ -35,24 +48,41 @@ export const Home = ({ socket }) => {
         component="form"
         display="flex"
         flexDirection="column"
-        onSubmit={onSubmit}
+        onSubmit={handleSubmit(onSubmit)}
         backgroundColor="#f0f0f2"
         p={3}
         minWidth={300}
       >
         <Typography variant="h4">Join</Typography>
-        <Typography sx={{
-          mt: 3, mb: 1
-        }}>Display Name</Typography>
 
         <TextField
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          id="username"
+          label="Username"
+          {...register("username")}
+          error={!!errors.username}
+          helperText={errors.username?.message}
+          fullWidth
+          required
+          sx={{ mt: 4 }}
         />
-        <Typography sx={{ mt: 2, mb: 1}}>Room</Typography>
-
-        <TextField value={room} onChange={(e) => setRoom(e.target.value)} />
-        <Button type="submit" variant="contained" color="secondary" sx={{ mt: 3}}>
+        <TextField
+          id="room"
+          label="Room"
+          {...register("room")}
+          error={!!errors.room}
+          helperText={errors.room?.message}
+          fullWidth
+          required
+          sx={{ mt: 3 }}
+        />
+        <Button
+          type="submit"
+          disabled={!isValid}
+          variant="contained"
+          color="secondary"
+          size="large"
+          sx={{ mt: 3 }}
+        >
           Join
         </Button>
       </Box>
