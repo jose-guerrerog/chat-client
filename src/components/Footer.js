@@ -1,18 +1,18 @@
 import { useState } from "react";
 import Box from "@mui/material/Box";
-import { Button, Stack, TextField } from "@mui/material";
+import { Button, TextField } from "@mui/material";
 import Divider from "@mui/material/Divider";
 
-export function Footer({socket}) {
-  const [message, setMessage] = useState('')
+export const Footer = ({ socket }) => {
+  const [message, setMessage] = useState("");
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    const username = localStorage.getItem('username')
+    const username = localStorage.getItem("username");
     if (message.trim() && username) {
-      socket.emit('sendMessage', message)
+      socket.emit("sendMessage", message);
     }
-    setMessage('');
+    setMessage("");
   };
 
   return (
@@ -22,17 +22,34 @@ export function Footer({socket}) {
         position: "fixed",
         bottom: 0,
         height: "80px",
-        width: "100%",
+        width: "calc(100% - 240px)",
       }}
     >
       <Divider />
-      <Stack flexDirection="row" alignItems="center" height="100%">
+      <Box
+        component="form"
+        onSubmit={handleSendMessage}
+        display="flex"
+        alignItems="center"
+        width="calc(100% - 48px)"
+        height="100%"
+        px={3}
+      >
         <TextField
           value={message}
-          onChange={e => setMessage(e.target.value)}
+          onChange={(e) => setMessage(e.target.value)}
+          fullWidth
         />
-        <Button onClick={handleSendMessage}>Send</Button>
-      </Stack>
+        <Button
+          type="submit"
+          color="secondary"
+          variant="contained"
+          size="large"
+          sx={{ ml: 3 }}
+        >
+          Send
+        </Button>
+      </Box>
     </Box>
   );
 }
