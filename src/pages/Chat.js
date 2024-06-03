@@ -2,28 +2,23 @@ import { Box, Drawer } from "@mui/material";
 import { MainContent } from '../components/MainContent';
 import { Sidebar } from '../components/Sidebar';
 import { Footer } from "../components/Footer";
-import { useEffect } from "react";
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
+import { useState, useEffect } from "react";
 
-export const Chat = () => {
-  // function sendMessage() {
-  //   console.log("Button clicked");
-  //   socket.emit("send_message", { message: "Hello from client" });
-  // }
+export const Chat = ({socket}) => {
+  const [messages, setMessages] = useState([])
+
   useEffect(() => {
-    socket.on("receive_message", (data) => {
-      alert(data.message);
-    });
-  }, [socket]);
-
+    socket.on("message", data => {
+      setMessages([...messages, data]);
+    })
+  }, [messages])
 
   return (
       <Box display="flex">
-        <Sidebar />
+        <Sidebar socket={socket} />
         <Box height="100vh" overflow={"none"}>
-          <MainContent />
-          <Footer />
+          <MainContent socket={socket} messages={messages} />
+          <Footer socket={socket} />
         </Box>
       </Box>
   );

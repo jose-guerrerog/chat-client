@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -16,7 +16,17 @@ import MailIcon from "@mui/icons-material/Mail";
 
 const drawerWidth = 240;
 
-export function Sidebar() {
+export function Sidebar({socket}) {
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    socket.on('roomData', ({ room, users }) => {
+      console.log('room')
+      console.log(room)
+      setUsers(users);
+    })
+  }, [])
+
   return (
     <Drawer
       sx={{
@@ -35,7 +45,10 @@ export function Sidebar() {
         variant="h5"
       >
         Current Users
-        </Typography>
+      </Typography>
+      {
+        users.map((user) => user.username)
+      }
     </Drawer>
   );
 }

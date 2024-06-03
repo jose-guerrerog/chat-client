@@ -1,4 +1,4 @@
-import * as React from "react";
+import { useState } from "react";
 import Box from "@mui/material/Box";
 import Drawer from "@mui/material/Drawer";
 import CssBaseline from "@mui/material/CssBaseline";
@@ -13,17 +13,34 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import ListItemText from "@mui/material/ListItemText";
 import InboxIcon from "@mui/icons-material/MoveToInbox";
 import MailIcon from "@mui/icons-material/Mail";
-
+import { Message } from "./Message";
 const drawerWidth = 240;
 
-export function MainContent() {
+export function MainContent({socket, messages}) {
+
+  // useEffect(() => {
+  //   socket.on('messageResponse', (data) => setMessages(mess=>[...mess, data]));
+  // }, [socket]);
+
+
+  // socket.on('message', (message) => {
+  //   console.log('adsasd')
+  //   console.log(message)
+  // })
+
+  console.log('messages')
+  console.log(messages)
   return (
     <Box
       component="main"
       overflow="auto"
     >
-      adnsionsdionsadion
-
+      {messages.map(message => (
+        <Message
+          message={{...message}}
+        />
+      ))
+      }
     </Box>
   );
 }

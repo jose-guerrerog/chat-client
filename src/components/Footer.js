@@ -3,23 +3,14 @@ import Box from "@mui/material/Box";
 import { Button, Stack, TextField } from "@mui/material";
 import Divider from "@mui/material/Divider";
 
-import io from "socket.io-client";
-const socket = io.connect("http://localhost:4000");
-
-const drawerWidth = 240;
-
-export function Footer() {
+export function Footer({socket}) {
   const [message, setMessage] = useState('')
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    if (message.trim()) {
-      socket.emit('send_message', {
-        // text: message,
-        // id: `${socket.id}${Math.random()}`,
-        // socketID: socket.id,
-        message,
-      });
+    const username = localStorage.getItem('username')
+    if (message.trim() && username) {
+      socket.emit('sendMessage', message)
     }
     setMessage('');
   };
