@@ -1,24 +1,31 @@
 import moment from "moment";
 import Box from "@mui/material/Box";
-import { Button, Stack, TextField, Typography } from "@mui/material";
-import Divider from "@mui/material/Divider";
+import { Stack, Typography } from "@mui/material";
 
-export function Message({message}) {
-
+export const Message = ({ message, isUserMessage }) => {
   return (
     <Box
-      display='flex'
+      display="flex"
       sx={{
-        borderRadius: '20px'
+        borderRadius: "12px",
+        backgroundColor: isUserMessage ? "#d9fdd3" : "#ffffff",
+        width: "300px",
       }}
     >
-      <Typography fontWeight={700}>
-        {message.username}
-        {moment(message.createdAt).format('h:mm a')}
-      </Typography>
-      <Typography>
-        {message.text}
-      </Typography>
+      <Box
+        sx={{
+          p: 2,
+          width: "100%",
+        }}
+      >
+        <Stack flexDirection="row" justifyContent="space-between">
+          <Typography fontWeight={700}>{message.username}</Typography>
+          <Typography fontWeight={700}>
+            {moment(message.createdAt).format("h:mm a")}
+          </Typography>
+        </Stack>
+        <Typography noWrap>{message.text}</Typography>
+      </Box>
     </Box>
   );
-}
+};

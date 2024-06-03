@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import { MainContent } from '../components/MainContent';
+import { ChatBody } from '../components/ChatBody';
 import { Sidebar } from '../components/Sidebar';
 import { Footer } from "../components/Footer";
 import { useState, useEffect } from "react";
@@ -16,8 +16,8 @@ export const Chat = ({socket}) => {
   return (
       <Box display="flex">
         <Sidebar socket={socket} />
-        <Box height="100vh" overflow={"none"} width='100%'>
-          <MainContent socket={socket} messages={messages} />
+        <Box height="100vh" width='100%' overflow='hidden' sx={{ backgroundColor: '#efe9e0' }}>
+          <ChatBody messages={messages} />
           <Footer socket={socket} />
         </Box>
       </Box>
