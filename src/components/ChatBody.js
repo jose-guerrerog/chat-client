@@ -5,9 +5,10 @@ export const ChatBody = ({ messages }) => {
   return (
     <Box
       component="main"
-      overflow="auto"
       sx={{
-        p: 3,
+        px: 3,
+        pt: 1,
+        overflowY: 'scroll'
       }}
     >
       {messages.map((message) => {

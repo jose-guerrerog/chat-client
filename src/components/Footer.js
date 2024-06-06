@@ -19,10 +19,10 @@ export const Footer = ({ socket }) => {
     <Box
       component="footer"
       sx={{
-        position: "fixed",
-        bottom: 0,
         height: "80px",
-        width: "calc(100% - 240px)",
+        width: '100%',
+        zIndex: 20,
+        background: 'inherit',
       }}
     >
       <Divider />
