@@ -1,7 +1,14 @@
 import Box from "@mui/material/Box";
 import { Message } from "./Message";
+import { useEffect, useRef } from "react";
 
 export const ChatBody = ({ messages }) => {
+  const lastMessageRef = useRef(null);
+
+  useEffect(() => {
+    lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
+  }, [messages]);
+
   return (
     <Box
       component="main"
@@ -25,6 +32,10 @@ export const ChatBody = ({ messages }) => {
           </Box>
         );
       })}
+      <Box
+        component='div'
+        ref={lastMessageRef}
+      />
     </Box>
   );
 };
