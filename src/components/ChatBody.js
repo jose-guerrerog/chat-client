@@ -1,9 +1,11 @@
 import Box from "@mui/material/Box";
 import { Message } from "./Message";
 import { useEffect, useRef } from "react";
+import { useUserStore } from "../store/userStore.ts";
 
 export const ChatBody = ({ messages }) => {
   const lastMessageRef = useRef(null);
+  const username = useUserStore(state => state.username)
 
   useEffect(() => {
     lastMessageRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -19,8 +21,7 @@ export const ChatBody = ({ messages }) => {
       }}
     >
       {messages.map((message) => {
-        const isUserMessage =
-          localStorage.getItem("username") === message.username;
+        const isUserMessage = message.username === username;
 
         return (
           <Box

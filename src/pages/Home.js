@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { validationSchema } from "../schema";
+import { useUserStore } from "../store/userStore.ts";
 
 export const Home = ({ socket }) => {
   
@@ -16,6 +17,7 @@ export const Home = ({ socket }) => {
     resolver: yupResolver(validationSchema),
   });
 
+  const setUsername = useUserStore(state => state.setUsername)
   const navigate = useNavigate();
 
   const onSubmit = (data) => {
@@ -23,9 +25,6 @@ export const Home = ({ socket }) => {
       username,
       room
     } = data;
-    localStorage.setItem("username", username);
-    localStorage.setItem("room", room);
-
     socket.emit("join", { username, room }, (error) => {
       if (error) {
         alert(error);
@@ -33,6 +32,7 @@ export const Home = ({ socket }) => {
       }
     });
     reset();
+    setUsername(username)
     navigate("/chat");
   };
 
