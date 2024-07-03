@@ -42,7 +42,7 @@ export const Home = ({ socket }) => {
       justifyContent="center"
       alignItems="center"
       height="100vh"
-      backgroundColor="#222222"
+      backgroundColor="#004987"
     >
       <Box
         component="form"
@@ -53,7 +53,7 @@ export const Home = ({ socket }) => {
         p={3}
         minWidth={300}
       >
-        <Typography variant="h4">Join</Typography>
+        <Typography variant="h4">Join Chat Room</Typography>
 
         <TextField
           id="username"
