@@ -9,7 +9,7 @@ export const Message = ({ message, isUserMessage }) => {
       sx={{
         borderRadius: "12px",
         backgroundColor: isUserMessage ? "#d9fdd3" : "#ffffff",
-        width: "400px",
+        width: "350px",
       }}
     >
       <Box
@@ -24,7 +24,7 @@ export const Message = ({ message, isUserMessage }) => {
             {moment(message.createdAt).format("h:mm a")}
           </Typography>
         </Stack>
-        <Typography wrap='noWrap'>{message.text}</Typography>
+        <Typography wrap='noWrap'   style={{ wordWrap: "break-word" }}>{message.text}</Typography>
       </Box>
     </Box>
   );
