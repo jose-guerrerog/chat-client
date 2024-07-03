@@ -2,13 +2,14 @@ import { useState } from "react";
 import Box from "@mui/material/Box";
 import { Button, TextField } from "@mui/material";
 import Divider from "@mui/material/Divider";
+import { useUserStore } from "../store/userStore.ts";
 
 export const Footer = ({ socket }) => {
   const [message, setMessage] = useState("");
+  const username = useUserStore(state => state.username)
 
   const handleSendMessage = (e) => {
     e.preventDefault();
-    const username = localStorage.getItem("username");
     if (message.trim() && username) {
       socket.emit("sendMessage", message);
     }
