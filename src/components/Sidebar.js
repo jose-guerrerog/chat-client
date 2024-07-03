@@ -38,7 +38,7 @@ export const Sidebar = ({socket}) => {
         Current Users
       </Typography>
       {
-        users.map((user) => <Typography noWrap mt={2}>{user.username}</Typography>)
+        users.map((user) => <Typography noWrap mt={2} key={`user-${user.username}`}>{user.username}</Typography>)
       }
       </Box>
     </Drawer>

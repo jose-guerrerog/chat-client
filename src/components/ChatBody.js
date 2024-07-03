@@ -20,7 +20,7 @@ export const ChatBody = ({ messages }) => {
         overflowY: 'scroll'
       }}
     >
-      {messages.map((message) => {
+      {messages.map((message, index) => {
         const isUserMessage = message.username === username;
 
         return (
@@ -28,6 +28,7 @@ export const ChatBody = ({ messages }) => {
             display="flex"
             justifyContent={isUserMessage ? "flex-end" : "flex-start"}
             mb={2}
+            key={`message-${index}`}
           >
             <Message message={{ ...message }} isUserMessage={isUserMessage} />
           </Box>
