@@ -15,7 +15,7 @@ export const ChatBody = ({ messages }) => {
     <Box
       component="main"
       sx={{
-        px: 3,
+        mx: 3,
         pt: 1,
         overflowY: 'scroll'
       }}

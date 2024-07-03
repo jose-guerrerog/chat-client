@@ -9,13 +9,13 @@ export const Message = ({ message, isUserMessage }) => {
       sx={{
         borderRadius: "12px",
         backgroundColor: isUserMessage ? "#d9fdd3" : "#ffffff",
-        width: "300px",
+        width: "400px",
       }}
     >
       <Box
         sx={{
+          width: `calc(100% - 32px)`,
           p: 2,
-          width: "100%",
         }}
       >
         <Stack flexDirection="row" justifyContent="space-between">
@@ -24,7 +24,7 @@ export const Message = ({ message, isUserMessage }) => {
             {moment(message.createdAt).format("h:mm a")}
           </Typography>
         </Stack>
-        <Typography noWrap>{message.text}</Typography>
+        <Typography wrap='noWrap'>{message.text}</Typography>
       </Box>
     </Box>
   );
